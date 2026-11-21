@@ -1,4 +1,6 @@
-# SUR STUDIO PRO — Digital Harmonium & Precision Metronome
+# SUR STUDIO PRO – Online Digital Harmonium
+
+**Live Website:** [https://ekvansh9-pixel.github.io/sur-studio-pro/](https://ekvansh9-pixel.github.io/sur-studio-pro/)
 
 **SUR STUDIO PRO** is a professional, high-fidelity browser-based digital harmonium designed for classical Indian music practice, vocal accompaniment, and keyboard exploration. Powered by the Web Audio API, it delivers authentic free-reed acoustic resonance, responsive polyphony, tone equalization, precision rhythm generation, and hardware MIDI support with zero latency or timer drift.
 

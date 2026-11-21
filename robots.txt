@@ -1,0 +1,8 @@
+# robots.txt for SUR STUDIO PRO
+# Allow all search engines and crawlers full access
+
+User-agent: *
+Allow: /
+
+# Sitemap Location
+Sitemap: https://ekvansh9-pixel.github.io/sur-studio-pro/sitemap.xml
