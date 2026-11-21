@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SUR STUDIO PRO — Concert Harmonium & Precision Metronome</title>
+    <meta name="description" content="A simple, elegant digital harmonium with built-in precision metronome, realistic keyboard, tone controls, and MIDI support.">
+
+    <!-- Security Meta Protections for Static Deployment -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; media-src 'self' https:; connect-src 'self' https:; object-src 'none'; base-uri 'self';">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <!-- Fonts & Icons with Subresource Integrity (SRI) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="app-wrapper">
+
+        <!-- ── Top Header ─────────────────────────────────────────────── -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="brand-icon" title="SUR STUDIO PRO">
+                    <svg class="brand-logo-svg" viewBox="0 0 36 36" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sur Studio Logo">
+                        <defs>
+                            <linearGradient id="logoBg" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#d97706" />
+                                <stop offset="50%" stop-color="#b45309" />
+                                <stop offset="100%" stop-color="#78350f" />
+                            </linearGradient>
+                            <linearGradient id="reedGrad" x1="0" y1="0" x2="0" y2="36" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#ffffff" />
+                                <stop offset="50%" stop-color="#fef3c7" />
+                                <stop offset="100%" stop-color="#fbbf24" />
+                            </linearGradient>
+                            <filter id="logoGlow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="rgba(0,0,0,0.3)" />
+                            </filter>
+                        </defs>
+                        <!-- Rounded Plaque Background -->
+                        <rect width="36" height="36" rx="8" fill="url(#logoBg)" />
+                        <rect x="0.5" y="0.5" width="35" height="35" rx="7.5" stroke="rgba(255,255,255,0.22)" />
+                        <!-- Stylized Harmonium Reeds & Resonator Waves forming S -->
+                        <g filter="url(#logoGlow)">
+                            <path d="M11 11.5C11 9.5 12.8 8 15 8H21C23.2 8 25 9.5 25 11.5V13C25 15 23.2 16.5 21 16.5H15C12.8 16.5 11 18 11 20V24.5C11 26.5 12.8 28 15 28H21C23.2 28 25 26.5 25 24.5" stroke="url(#reedGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <!-- Free Reed Center Core -->
+                            <circle cx="18" cy="18" r="2.2" fill="#ffffff" />
+                            <!-- Resonator Flute Accents -->
+                            <circle cx="21" cy="12" r="1.3" fill="#fef3c7" />
+                            <circle cx="15" cy="24" r="1.3" fill="#fef3c7" />
+                        </g>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <div class="brand-title-wrap">
+                        <h1 class="brand-title">SUR STUDIO</h1>
+                        <span class="pro-tag">PRO</span>
+                    </div>
+                    <span class="brand-sub">Concert Harmonium &bull; Precision Metronome</span>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <span id="midiBadge" class="status-badge" title="MIDI Hardware Status">
+                    <span class="dot"></span> MIDI
+                </span>
+                <button type="button" id="fullscreenBtn" class="icon-btn" title="Toggle Fullscreen" aria-label="Fullscreen">
+                    <i class="fa fa-arrows-alt"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- ── Initial Audio Unlock Screen ────────────────────────────── -->
+        <div id="loadScreen" class="start-card">
+            <h2>Welcome to SUR STUDIO PRO</h2>
+            <p>Play authentic harmonium with computer keyboard, mouse/touch, or MIDI controller.</p>
+            <button id="loadBtn" type="button" class="btn-primary">
+                <i class="fa fa-play"></i> Start Harmonium
+            </button>
+            <p id="loadMsg" class="sub-text">Click to initialize the browser audio engine.</p>
+        </div>
+
+        <!-- ── Main Harmonium & Metronome Screen ──────────────────────── -->
+        <main id="mainScreen" hidden>
+
+            <!-- ── 1. The Harmonium Keyboard (Centerpiece) ─────────────── -->
+            <section class="keyboard-card">
+                <div class="keyboard-toolbar">
+                    <div class="toolbar-spec">
+                        <i class="fa fa-music"></i>
+                        <span>23-Key Harmonium &bull; Mandra to Taar Saptak</span>
+                    </div>
+                    <!-- Label Mode Selector -->
+                    <div class="label-mode-switch" id="labelModeSwitch">
+                        <span class="switch-title">Key Labels:</span>
+                        <button type="button" class="pill-btn active" data-mode="sargam">Sargam</button>
+                        <button type="button" class="pill-btn" data-mode="western">Western</button>
+                        <button type="button" class="pill-btn" data-mode="none">Off</button>
+                    </div>
+                </div>
+
+                <!-- SVG Keyboard -->
+                <svg id="keyboard" viewBox="-2 -2 298 104" role="group" aria-label="Harmonium Keyboard"></svg>
+            </section>
+
+            <!-- ── 2. Metronome Section ──────────────────────────────── -->
+            <section class="metronome-card">
+                <div class="card-head">
+                    <div class="card-title">
+                        <i class="fa fa-clock-o"></i> Metronome
+                    </div>
+                    <div id="metroLed" class="metro-led" title="Beat pulse"></div>
+                </div>
+
+                <div class="metro-grid">
+                    <!-- Col 1: Start/Stop Button -->
+                    <div class="metro-col metro-col-toggle">
+                        <div class="item-label-row">
+                            <span class="item-label">Status</span>
+                        </div>
+                        <button id="metroToggleBtn" type="button" class="btn-metro-toggle metro-ctrl-box">
+                            <i class="fa fa-play"></i> Start
+                        </button>
+                    </div>
+
+                    <!-- Col 2: BPM Controls -->
+                    <div class="metro-col metro-col-bpm">
+                        <div class="item-label-row">
+                            <span class="item-label">Tempo</span>
+                            <b id="bpmText" class="val-text">90 BPM</b>
+                        </div>
+                        <div class="stepper-box metro-ctrl-box">
+                            <button type="button" class="btn-step" id="bpmDown" aria-label="Decrease BPM">-</button>
+                            <input type="range" id="bpmSlider" class="range-slider" min="30" max="240" value="90" aria-label="BPM">
+                            <button type="button" class="btn-step" id="bpmUp" aria-label="Increase BPM">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Col 3: Tap Tempo -->
+                    <div class="metro-col metro-col-tap">
+                        <div class="item-label-row">
+                            <span class="item-label">Sync</span>
+                        </div>
+                        <button id="tapTempoBtn" type="button" class="btn-tap metro-ctrl-box">
+                            <i class="fa fa-hand-pointer-o"></i> Tap Tempo
+                        </button>
+                    </div>
+
+                    <!-- Col 4: Time Signature -->
+                    <div class="metro-col metro-col-sig">
+                        <div class="item-label-row">
+                            <span class="item-label">Meter</span>
+                        </div>
+                        <select id="timeSigSelect" class="clean-select metro-ctrl-box" aria-label="Time signature">
+                            <option value="4/4" selected>4/4 Time</option>
+                            <option value="3/4">3/4 Waltz</option>
+                            <option value="6/8">6/8 Compound</option>
+                        </select>
+                    </div>
+
+                    <!-- Col 5: Metronome Volume -->
+                    <div class="metro-col metro-col-vol">
+                        <div class="item-label-row">
+                            <span class="item-label">Click Vol</span>
+                            <b id="metroVolText" class="val-text">50%</b>
+                        </div>
+                        <div class="slider-box metro-ctrl-box">
+                            <input type="range" id="metroVolSlider" class="range-slider" min="0" max="100" value="50" aria-label="Metronome Volume">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── 3. Simple & Organized Instrument Controls ───────────── -->
+            <div class="controls-grid">
+
+                <!-- Panel 1: Sound & Master -->
+                <div class="control-box">
+                    <div class="box-title">
+                        <span>Sound</span>
+                    </div>
+
+                    <!-- Row 1: Volume -->
+                    <div class="control-row">
+                        <div class="row-meta">
+                            <span>Master Volume</span>
+                            <span id="volumeLevel" class="val-text">30%</span>
+                        </div>
+                        <div class="row-control slider-wrap">
+                            <input type="range" min="1" max="100" value="30" class="range-slider" id="myRange" aria-label="Master Volume">
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Reverb -->
+                    <div class="control-row">
+                        <div class="row-meta">
+                            <span>Acoustic Reverb</span>
+                            <label class="toggle-switch">
+                                <input id="useReverb" type="checkbox" aria-label="Reverb">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="row-control">
+                            <div class="info-pill"><i class="fa fa-volume-up"></i> Concert Hall Impulse</div>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Additional Reeds Stepper -->
+                    <div class="control-row">
+                        <div class="row-meta">
+                            <span>Additional Reeds</span>
+                            <span id="stack" class="val-text">0</span>
+                        </div>
+                        <div class="row-control">
+                            <div class="stepper-box">
+                                <button type="button" class="btn-step" data-step="stack" data-delta="-1" aria-label="Fewer reeds">-</button>
+                                <span class="step-label">Layered Reeds</span>
+                                <button type="button" class="btn-step" data-step="stack" data-delta="1" aria-label="More reeds">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 2: Pitch & Register -->
+                <div class="control-box">
+                    <div class="box-title">
+                        <span>Pitch & Range</span>
+                    </div>
+
+                    <!-- Row 1: Transpose -->
+                    <div class="control-row">
+                        <div class="row-meta">
+                            <span>Transpose: Root <b id="rootNote" style="color:var(--accent-amber);">C</b></span>
+                            <span id="transpose" class="val-text">0</span>
+                        </div>
+                        <div class="row-control">
+                            <div class="stepper-box">
+                                <button type="button" class="btn-step" data-step="transpose" data-delta="-1" aria-label="Transpose down">-</button>
+                                <span class="step-label">Semitone</span>
+                                <button type="button" class="btn-step" data-step="transpose" data-delta="1" aria-label="Transpose up">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Octave -->
+                    <div class="control-row">
+                        <div class="row-meta">
+                            <span>Current Octave</span>
+                            <span id="octave" class="val-text">3</span>
+                        </div>
+                        <div class="row-control">
+                            <div class="stepper-box">
+                                <button type="button" class="btn-step" data-step="octave" data-delta="-1" aria-label="Octave down">-</button>
+                                <span class="step-label">Register</span>
+                                <button type="button" class="btn-step" data-step="octave" data-delta="1" aria-label="Octave up">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Concert Pitch Tuning -->
+                    <div class="control-row">
+                        <div class="row-meta">
+                            <span>Concert Pitch</span>
+                            <span class="val-text">A4 = 440 Hz</span>
+                        </div>
+                        <div class="row-control">
+                            <div class="info-pill"><i class="fa fa-music"></i> Standard 12-TET Tuning</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 3: Tone & Equalizer -->
+                <div class="control-box">
+                    <div class="box-title">
+                        <span>Tone & Equalizer</span>
+                        <button id="toneReset" type="button" class="btn-small-reset">Reset</button>
+                    </div>
+
+                    <!-- Row 1: Attack & Release -->
+                    <div class="control-row">
+                        <div class="row-meta">
+                            <span>Attack: <b id="val-attack" class="val-text">2 ms</b></span>
+                            <span>Release: <b id="val-release" class="val-text">40 ms</b></span>
+                        </div>
+                        <div class="row-control dual-inputs">
+                            <input type="range" class="range-slider" data-setting="attack" min="0" max="200" step="1" value="2" title="Attack">
+                            <input type="range" class="range-slider" data-setting="release" min="0" max="1000" step="5" value="40" title="Release">
+                        </div>
+                    </div>
+
+                    <!-- Row 2: 3-Band EQ -->
+                    <div class="control-row">
+                        <div class="row-meta">
+                            <span>Bass / Mid / Treble</span>
+                            <span id="val-eqLow" class="val-text">0 dB</span>
+                        </div>
+                        <div class="row-control triple-inputs">
+                            <input type="range" class="range-slider" data-setting="eqLow" min="-12" max="12" step="1" value="0" title="Bass">
+                            <input type="range" class="range-slider" data-setting="eqMid" min="-12" max="12" step="1" value="0" title="Mid">
+                            <input type="range" class="range-slider" data-setting="eqHigh" min="-12" max="12" step="1" value="0" title="Treble">
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Tone Character -->
+                    <div class="control-row">
+                        <div class="row-meta">
+                            <span>Tone Character</span>
+                            <span class="val-text">Harmonic</span>
+                        </div>
+                        <div class="row-control">
+                            <div class="info-pill"><i class="fa fa-sliders"></i> Dynamic Reed Filter</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 4: MIDI Hardware -->
+                <div class="control-box">
+                    <div class="box-title">
+                        <span>MIDI Keyboard</span>
+                        <button id="midiRefresh" type="button" class="btn-small-reset" title="Refresh MIDI ports">
+                            <i class="fa fa-refresh"></i>
+                        </button>
+                    </div>
+
+                    <!-- Row 1: Port -->
+                    <div class="control-row">
+                        <div class="row-meta">
+                            <span>Device Port</span>
+                            <span id="midiStatus" class="val-text">Inactive</span>
+                        </div>
+                        <div class="row-control">
+                            <select id="midiInputDevices" class="clean-select" aria-label="MIDI input device">
+                                <option value="all">All inputs</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Mode -->
+                    <div class="control-row">
+                        <div class="row-meta">
+                            <span>Input Mode</span>
+                            <span class="val-text">Omni (Ch 1–16)</span>
+                        </div>
+                        <div class="row-control">
+                            <div class="info-pill"><i class="fa fa-plug"></i> Note-On / Note-Off / CC7</div>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Activity Monitor -->
+                    <div class="control-row">
+                        <div class="row-meta">
+                            <span>Activity Monitor</span>
+                            <span class="val-text">Live</span>
+                        </div>
+                        <div class="row-control">
+                            <div class="activity-box">
+                                <p id="midiActivity" class="midi-msg-text">No messages received.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ── 4. Custom Sampler (Clean Collapsible Accordion) ──────── -->
+            <details class="sampler-accordion">
+                <summary class="accordion-head">
+                    <i class="fa fa-cog"></i> Custom Audio Sampler (Optional)
+                </summary>
+                <div class="accordion-body">
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">
+                        Load custom sample URLs: <code>URL note [loopStart] [loopEnd]</code>
+                    </p>
+                    <textarea id="samplerUrls" class="clean-textarea" rows="3" placeholder="https://example.com/harmonium_C3.wav C3&#10;https://example.com/harmonium_G3.wav G3 0.8"></textarea>
+                    
+                    <div style="display: flex; gap: 8px; margin: 10px 0;">
+                        <button id="samplerApply" type="button" class="btn-action">Load Samples</button>
+                        <button id="samplerReset" type="button" class="btn-secondary">Use Built-in</button>
+                    </div>
+
+                    <div class="sampler-file-upload">
+                        <span class="file-prompt">Or load audio files from device (must include note pitch in name, e.g. <code>harmonium_D4.wav</code>):</span>
+                        <input type="file" id="samplerFiles" accept="audio/*" multiple class="clean-file-input">
+                    </div>
+
+                    <div id="samplerStatus" class="sampler-status-pill">
+                        <i class="fa fa-check-circle"></i> Using the built-in harmonium sample.
+                    </div>
+                </div>
+            </details>
+
+        </main>
+
+    </div>
+
+    <!-- Application Scripts -->
+    <script src="js/procedural-harmonium.js"></script>
+    <script src="js/audio-engine.js"></script>
+    <script src="js/metronome-engine.js"></script>
+    <script src="js/midi-manager.js"></script>
+    <script src="js/keyboard-view.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
