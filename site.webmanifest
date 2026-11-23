@@ -1,6 +1,6 @@
 {
-  "name": "Sur Studio – Free Online Harmonium",
-  "short_name": "Sur Studio",
+  "name": "Web Harmonium – Free Online Harmonium",
+  "short_name": "Web Harmonium",
   "description": "Play free online harmonium with realistic sound, 23 responsive keys, precision metronome, and MIDI support. Practice Indian classical music in your browser.",
   "start_url": "./",
   "display": "standalone",
