@@ -1,8 +1,8 @@
-# SUR STUDIO PRO – Online Digital Harmonium
+# Sur Studio – Online Digital Harmonium
 
 **Live Website:** [https://ekvansh9-pixel.github.io/sur-studio-pro/](https://ekvansh9-pixel.github.io/sur-studio-pro/)
 
-**SUR STUDIO PRO** is a professional, high-fidelity browser-based digital harmonium designed for classical Indian music practice, vocal accompaniment, and keyboard exploration. Powered by the Web Audio API, it delivers authentic free-reed acoustic resonance, responsive polyphony, tone equalization, precision rhythm generation, and hardware MIDI support with zero latency or timer drift.
+**Sur Studio** is a professional, high-fidelity browser-based digital harmonium designed for classical Indian music practice, vocal accompaniment, and keyboard exploration. Powered by the Web Audio API, it delivers authentic free-reed acoustic resonance, responsive polyphony, tone equalization, precision rhythm generation, and hardware MIDI support with zero latency or timer drift.
 
 ---
 
@@ -60,7 +60,7 @@ Play notes directly from your computer keyboard without external hardware:
 
 ## Browser Compatibility
 
-SUR STUDIO PRO is built with pure standards-based Web Audio and Web MIDI APIs:
+Sur Studio is built with pure standards-based Web Audio and Web MIDI APIs:
 - **Google Chrome / Chromium:** Full audio and Web MIDI support.
 - **Microsoft Edge:** Full audio and Web MIDI support.
 - **Mozilla Firefox:** Full audio support (Web MIDI requires browser flag enabled).

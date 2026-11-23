@@ -1,5 +1,5 @@
 /**
- * SUR STUDIO PRO — Precision Web Audio Metronome
+ * Sur Studio — Precision Web Audio Metronome
  * High-precision lookahead scheduler using audioContext.currentTime.
  * Supports Western time signatures (4/4, 3/4, 6/8) and Indian Classical Taals
  * (Teentaal 16, Keherwa 8, Dadra 6, Rupak 7) without JS timer drift.

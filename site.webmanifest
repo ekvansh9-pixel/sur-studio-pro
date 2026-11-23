@@ -1,0 +1,26 @@
+{
+  "name": "Sur Studio – Online Digital Harmonium",
+  "short_name": "Sur Studio",
+  "description": "A free online harmonium for playing melodies, practicing music, exploring notes and octaves, and improving your musical skills. Play directly in your browser.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#b45309",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
