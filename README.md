@@ -1,4 +1,4 @@
-# Sur Studio – Online Digital Harmonium
+# Sur Studio – Free Online Harmonium
 
 **Live Website:** [https://ekvansh9-pixel.github.io/sur-studio-pro/](https://ekvansh9-pixel.github.io/sur-studio-pro/)
 

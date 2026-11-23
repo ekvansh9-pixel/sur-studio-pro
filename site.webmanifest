@@ -1,7 +1,7 @@
 {
-  "name": "Sur Studio – Online Digital Harmonium",
+  "name": "Sur Studio – Free Online Harmonium",
   "short_name": "Sur Studio",
-  "description": "A free online harmonium for playing melodies, practicing music, exploring notes and octaves, and improving your musical skills. Play directly in your browser.",
+  "description": "Play free online harmonium with realistic sound, 23 responsive keys, precision metronome, and MIDI support. Practice Indian classical music in your browser.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f8fafc",
