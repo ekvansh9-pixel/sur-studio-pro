@@ -1,7 +1,7 @@
 {
-  "name": "Web Harmonium – Free Online Harmonium",
-  "short_name": "Web Harmonium",
-  "description": "Play free online harmonium with realistic sound, 23 responsive keys, precision metronome, and MIDI support. Practice Indian classical music in your browser.",
+  "name": "Sur Studio – Free Virtual Harmonium",
+  "short_name": "Sur Studio",
+  "description": "Play harmonium online for free. Explore Indian ragas, Bhatkhande thaats and songs with a virtual keyboard, realistic sound and interactive practice tools.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f8fafc",
