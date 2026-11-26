@@ -91,16 +91,19 @@ body {
     flex-shrink: 0;
 }
 
-.brand-logo-svg {
+.brand-logo-svg,
+.brand-logo-img {
     display: block;
     width: 40px;
     height: 40px;
-    border-radius: 9px;
+    border-radius: 50%;
     box-shadow: 0 3px 10px rgba(180, 83, 9, 0.28);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    object-fit: cover;
 }
 
-.brand:hover .brand-logo-svg {
+.brand:hover .brand-logo-svg,
+.brand:hover .brand-logo-img {
     transform: translateY(-1px);
     box-shadow: 0 4px 14px rgba(180, 83, 9, 0.35);
 }
@@ -1024,7 +1027,8 @@ body {
         width: 36px;
         height: 36px;
     }
-    .brand-logo-svg {
+    .brand-logo-svg,
+    .brand-logo-img {
         width: 36px;
         height: 36px;
     }
