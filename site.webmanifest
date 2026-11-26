@@ -1,12 +1,22 @@
 {
   "name": "Sur Studio – Free Virtual Harmonium",
   "short_name": "Sur Studio",
-  "description": "Play harmonium online for free. Explore Indian ragas, Bhatkhande thaats and songs with a virtual keyboard, realistic sound and interactive practice tools.",
+  "description": "Play free virtual harmonium online with authentic acoustic reed sound, 23 responsive keys, and precision metronome. Practice Indian classical music with Sur Studio.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f8fafc",
   "theme_color": "#b45309",
   "icons": [
+    {
+      "src": "assets/favicon-48x48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
     {
       "src": "assets/icon-192.png",
       "sizes": "192x192",
